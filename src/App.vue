@@ -366,7 +366,7 @@ export default {
       return currentLang ? currentLang.realLocale : 'us';
     },
     sortedGenres() {
-      const genreArray = Object.values(genres);
+      const genreArray = Object.values(this.genres);
       return genreArray.sort((a, b) => {
         const nameA = a[this.genreNameKey] || a[this.genreFallbackKey] || '';
         const nameB = b[this.genreNameKey] || b[this.genreFallbackKey] || '';
@@ -377,14 +377,14 @@ export default {
       if (this.genre === -1) {
         return [];
       }
-      return genres[this.genre]['GENRE COMB'] || [];
+      return this.genres[this.genre]['GENRE COMB'] || [];
     },
     sortedSubGenres() {
       if (this.genre === -1) {
         return [];
       }
-      const subGenreIds = genres[this.genre]['GENRE COMB'] || [];
-      const subGenreArray = subGenreIds.map(id => genres[id]).filter(Boolean);
+      const subGenreIds = this.genres[this.genre]['GENRE COMB'] || [];
+      const subGenreArray = subGenreIds.map(id => this.genres[id]).filter(Boolean);
       return subGenreArray.sort((a, b) => {
         const nameA = a[this.genreNameKey] || a[this.genreFallbackKey] || '';
         const nameB = b[this.genreNameKey] || b[this.genreFallbackKey] || '';
@@ -397,7 +397,7 @@ export default {
       }
 
       const topicsList = [];
-      const genreThemes = genres[this.genre].themes || [];
+      const genreThemes = this.genres[this.genre].themes || [];
       
       for (const themeIndex of genreThemes) {
         if (this.topics[this.locale] && this.topics[this.locale][themeIndex]) {
@@ -451,10 +451,10 @@ export default {
       this.focus = this.getFocus(this.genre, this.subGenre);
       this.align = this.getAlign(this.genre, this.subGenre);
       this.priority = [
-        genres[this.genre].GAMEPLAY || 0,
-        genres[this.genre].GRAPHIC || 0,
-        genres[this.genre].SOUND || 0,
-        genres[this.genre].CONTROL || 0,
+        this.genres[this.genre].GAMEPLAY || 0,
+        this.genres[this.genre].GRAPHIC || 0,
+        this.genres[this.genre].SOUND || 0,
+        this.genres[this.genre].CONTROL || 0,
       ];
     },
     getAlign(mainGenre, subGenre) {
