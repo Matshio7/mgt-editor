@@ -1,29 +1,7 @@
 <template>
   <div id="app" class="min-h-screen bg-mgt-bg">
-    <!-- Loading Screen -->
-    <div v-if="loading" class="flex items-center justify-center min-h-screen">
-      <div class="mgt-window max-w-md">
-        <div class="mgt-window-header">
-          <div class="flex items-center space-x-3">
-            <div class="mgt-icon">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
-              </svg>
-            </div>
-            <h1 class="text-white text-lg font-semibold">Loading...</h1>
-          </div>
-        </div>
-        <div class="mgt-window-content p-6">
-          <div class="flex items-center justify-center">
-            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-            <span class="ml-3 text-gray-700">Loading game data...</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Main Window Container -->
-    <div v-else class="mgt-window">
+    <div class="mgt-window">
       <!-- Window Header -->
       <div class="mgt-window-header">
         <div class="flex items-center justify-between">
@@ -241,7 +219,10 @@
 </template>
 
 <script>
-// Data will be loaded via fetch from the dist/data/ folder
+import genres from './data/genres.json';
+import topics from './data/themes.json';
+import combinations from './data/combinations.json';
+import translations from './data/translations.json';
 
 export default {
   name: 'App',
@@ -271,11 +252,11 @@ export default {
     });
 
     return {
-      genres: {},
-      topics: {},
-      locales: [],
-      combinations: {},
-      translations: {},
+      genres,
+      topics,
+      locales,
+      combinations,
+      translations,
       genreFallbackKey: 'NAME EN',
       locale: window.localStorage && window.localStorage.getItem('latest_locale') || 'EN',
       genre: -1,
@@ -286,68 +267,15 @@ export default {
       align: {},
       priority: [],
       showLanguages: false,
-      loading: true,
     };
   },
-  async mounted() {
-    try {
-      // Load all data files from the dist/data/ folder
-      console.log('Loading data from ./data/ folder...');
-      const [genresData, topicsData, combinationsData, translationsData] = await Promise.all([
-        fetch('./data/genres.json').then(res => {
-          if (!res.ok) throw new Error('Failed to load genres.json');
-          return res.json();
-        }),
-        fetch('./data/themes.json').then(res => {
-          if (!res.ok) throw new Error('Failed to load themes.json');
-          return res.json();
-        }),
-        fetch('./data/combinations.json').then(res => {
-          if (!res.ok) throw new Error('Failed to load combinations.json');
-          return res.json();
-        }),
-        fetch('./data/translations.json').then(res => {
-          if (!res.ok) throw new Error('Failed to load translations.json');
-          return res.json();
-        })
-      ]);
-
-      this.genres = genresData;
-      this.topics = topicsData;
-      this.combinations = combinationsData;
-      this.translations = translationsData;
-
-      // Initialize locales
-      this.locales = Object.keys(this.topics).map((locale) => {
-        let realLocale = locale;
-        let displayLocale = locale;
-        
-        // Map locale codes to country flags
-        if (locale === 'GE') realLocale = 'DE';
-        if (locale === 'EN') realLocale = 'US';
-        if (locale === 'TU') realLocale = 'TR';
-        if (locale === 'PB') realLocale = 'PT';
-        if (locale === 'CT') realLocale = 'ZH';
-        if (locale === 'CH') realLocale = 'ZH';
-        
-        // Map locale codes to better display names
-        if (locale === 'GE') displayLocale = 'DE';
-        if (locale === 'PB') displayLocale = 'PT';
-        if (locale === 'TU') displayLocale = 'TR';
-
-        return {
-          locale,
-          displayLocale,
-          realLocale: realLocale.toLowerCase(),
-        };
-      });
-
-      this.loading = false;
-      console.log('Data loaded successfully!');
-    } catch (error) {
-      console.error('Error loading data:', error);
-      this.loading = false;
-    }
+  mounted() {
+    // Close language dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!this.$el.contains(e.target)) {
+        this.showLanguages = false;
+      }
+    });
   },
   watch: {
     genre() {
@@ -521,14 +449,6 @@ export default {
       ];
       return colors[index] || 'text-gray-500';
     },
-  },
-  mounted() {
-    // Close language dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!this.$el.contains(e.target)) {
-        this.showLanguages = false;
-      }
-    });
   },
 };
 </script>
