@@ -118,7 +118,7 @@
                   :key="group"
                   class="mgt-chip"
                 >
-                  {{ formatTargetGroup(group) }}
+                  {{ t(`targetGroup_${group}`) }}
                 </div>
               </div>
             </div>
@@ -397,9 +397,7 @@ export default {
       }
       return null;
     },
-    formatTargetGroup(group) {
-      return group.charAt(0) + group.slice(1).toLowerCase();
-    },
+
     getFocusLabelKey(index) {
       const keys = [
         'gameLength',
