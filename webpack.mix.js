@@ -42,17 +42,20 @@ mix.before((mixHelpers) => {
 	}
 
 	mix.after(() => {
-		let manifest = JSON.parse(
-			fs.readFileSync('./dist/mix-manifest.json').toString(),
-		);
-		let html = fs.readFileSync('./dist/index.html').toString();
-		for (let path of Object.keys(manifest)) {
-			html = html.replace(path, manifest[path].replace(/^\//, ''));
+		// Check if files exist before processing
+		if (fs.existsSync('./dist/mix-manifest.json') && fs.existsSync('./dist/index.html')) {
+			let manifest = JSON.parse(
+				fs.readFileSync('./dist/mix-manifest.json').toString(),
+			);
+			let html = fs.readFileSync('./dist/index.html').toString();
+			for (let path of Object.keys(manifest)) {
+				html = html.replace(path, manifest[path].replace(/^\//, ''));
+			}
+
+			html = html.replace(/\/\//i, '/');
+
+			fs.unlinkSync('./dist/mix-manifest.json');
+			fs.writeFileSync('./dist/index.html', html);
 		}
-
-		html = html.replace(/\/\//i, '/');
-
-		fs.unlinkSync('./dist/mix-manifest.json');
-		fs.writeFileSync('./dist/index.html', html);
 	});
 });

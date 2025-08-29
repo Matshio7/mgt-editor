@@ -1,3 +1,603 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+// Mad Games Tycoon 2 Exact Color Palette
+:root {
+  --mgt-blue-header: #4A90E2;
+  --mgt-blue-dark: #357ABD;
+  --mgt-red-progress: #D32F2F;
+  --mgt-red-light: #F44336;
+  --mgt-gray-bg: #E8E8E8;
+  --mgt-gray-panel: #F5F5F5;
+  --mgt-gray-border: #CCCCCC;
+  --mgt-gray-dark: #666666;
+  --mgt-white: #FFFFFF;
+  --mgt-text-dark: #333333;
+  --mgt-text-light: #666666;
+}
+
+// Base Styles
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial Rounded MT Bold', 'Arial Rounded MT', 'Helvetica Rounded', 'Arial', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  background: var(--mgt-gray-bg);
+  color: var(--mgt-text-dark);
+}
+
+// Mad Games Tycoon 2 Background Style
+.bg-mgt-bg {
+  background: 
+    radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at top right, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+    linear-gradient(135deg, #6fa8dc 0%, #4a90e2 25%, #357abd 50%, #2c5aa0 75%, #1e3a8a 100%);
+  min-height: 100vh;
+  padding: 12px;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.03) 50%, transparent 70%),
+      linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%),
+      linear-gradient(90deg, transparent 40%, rgba(255, 255, 255, 0.015) 60%, transparent 80%);
+    pointer-events: none;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.06) 0%, transparent 40%),
+      radial-gradient(circle at 60% 80%, rgba(255, 255, 255, 0.04) 0%, transparent 40%);
+    pointer-events: none;
+  }
+}
+
+.mgt-window {
+  background: var(--mgt-white);
+  border: 2px solid var(--mgt-gray-border);
+  border-radius: 8px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.mgt-window-header {
+  background: linear-gradient(180deg, var(--mgt-blue-header) 0%, var(--mgt-blue-dark) 100%);
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--mgt-blue-dark);
+}
+
+.mgt-window-content {
+  padding: 12px;
+  background: var(--mgt-gray-panel);
+}
+
+// Section Styles
+.mgt-section {
+  background: var(--mgt-white);
+  border: 1px solid var(--mgt-gray-border);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mgt-section-header {
+  background: linear-gradient(180deg, #F0F0F0 0%, #E0E0E0 100%);
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--mgt-gray-border);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--mgt-text-dark);
+}
+
+.mgt-section-header-blue {
+  background: linear-gradient(180deg, var(--mgt-blue-header) 0%, var(--mgt-blue-dark) 100%);
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--mgt-blue-dark);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--mgt-white);
+}
+
+.mgt-section-content {
+  padding: 8px;
+  background: var(--mgt-white);
+}
+
+// Form Elements
+.mgt-field {
+  margin-bottom: 8px;
+}
+
+.mgt-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mgt-text-dark);
+  margin-bottom: 3px;
+}
+
+.mgt-select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--mgt-gray-border);
+  border-radius: 3px;
+  background: var(--mgt-white);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--mgt-text-dark);
+  
+  &:focus {
+    outline: none;
+    border-color: var(--mgt-blue-header);
+    box-shadow: 0 0 3px rgba(74, 144, 226, 0.3);
+  }
+  
+  &:disabled {
+    background: #F8F8F8;
+    color: var(--mgt-gray-dark);
+    cursor: not-allowed;
+  }
+}
+
+.mgt-language-select {
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  
+  &:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  option {
+    background: var(--mgt-gray-bg);
+    color: var(--mgt-text-dark);
+  }
+}
+
+// Buttons
+.mgt-button-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  color: white;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.mgt-button-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: linear-gradient(180deg, #F44336 0%, #D32F2F 100%);
+  border: 1px solid #D32F2F;
+  border-radius: 4px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 2px 4px rgba(211, 47, 47, 0.3);
+  
+  &:hover {
+    background: linear-gradient(180deg, #E53935 0%, #C62828 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(211, 47, 47, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(211, 47, 47, 0.3);
+  }
+}
+
+// Dropdown
+.mgt-dropdown {
+  background: var(--mgt-white);
+  border: 1px solid var(--mgt-gray-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.mgt-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  
+  &:hover {
+    background: #F0F0F0;
+  }
+}
+
+// Chips
+.mgt-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  background: linear-gradient(180deg, #F0F0F0 0%, #E0E0E0 100%);
+  border: 1px solid var(--mgt-gray-border);
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mgt-text-dark);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+// Value Rows (Clean without progress bars)
+.mgt-value-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  padding: 4px 0;
+}
+
+.mgt-value-badge {
+  background: linear-gradient(180deg, #F0F0F0 0%, #E0E0E0 100%);
+  border: 1px solid var(--mgt-gray-border);
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mgt-text-dark);
+  min-width: 36px;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.mgt-label-text {
+  font-size: 14px;
+  color: var(--mgt-text-dark);
+  font-weight: 600;
+}
+
+// Sliders (Design Direction)
+.mgt-slider-row {
+  margin-bottom: 8px;
+}
+
+.mgt-slider-labels {
+  display: grid;
+  grid-template-columns: 40px 1fr 1fr;
+  align-items: center;
+  margin-bottom: 4px;
+  gap: 6px;
+}
+
+.mgt-slider {
+  position: relative;
+  height: 20px;
+  margin: 0 10px;
+}
+
+.mgt-slider-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(180deg, #F8F8F8 0%, #E8E8E8 100%);
+  border: 1px solid var(--mgt-gray-border);
+  border-radius: 2px;
+  transform: translateY(-50%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.mgt-slider-handle {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #E0E0E0 100%);
+  border: 2px solid var(--mgt-gray-border);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    height: 4px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.3) 100%);
+    border-radius: 50%;
+  }
+}
+
+// Priority Section
+.mgt-priority-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  padding: 4px 0;
+}
+
+.mgt-priority-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mgt-priority-label {
+  font-size: 14px;
+  color: var(--mgt-text-dark);
+  font-weight: 700;
+  margin-left: auto;
+}
+
+// Icons
+.mgt-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Mobile Optimizations
+@media (max-width: 768px) {
+  .bg-mgt-bg {
+    padding: 10px;
+  }
+  
+  .mgt-window-content {
+    padding: 12px;
+  }
+  
+  .mgt-section-content {
+    padding: 8px;
+  }
+  
+  .grid-cols-1.md\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .grid-cols-1.lg\:grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .mgt-progress-label {
+    min-width: 120px;
+  }
+  
+  .mgt-slider-labels {
+    font-size: 11px;
+  }
+}
+
+// Scrollbar
+.mgt-dropdown {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mgt-gray-border) transparent;
+}
+
+.mgt-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mgt-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mgt-dropdown::-webkit-scrollbar-thumb {
+  background: var(--mgt-gray-border);
+  border-radius: 3px;
+}
+
+.mgt-dropdown::-webkit-scrollbar-thumb:hover {
+  background: var(--mgt-gray-dark);
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mgt-section {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Focus States
+:focus-visible {
+  outline: 2px solid var(--mgt-blue-header);
+  outline-offset: 2px;
+}
+
+// Hover Effects
+.mgt-section:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mgt-chip:hover {
+  background: linear-gradient(180deg, #E8E8E8 0%, #D8D8D8 100%);
+  transform: translateY(-1px);
+}
+
+// Credits Footer
+.mgt-credits {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(204, 204, 204, 0.8);
+  border-radius: 4px;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
+}
+
+.mgt-credits-content {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--mgt-text-light);
+}
+
+.mgt-credits-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.mgt-credits-original,
+.mgt-credits-dev {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mgt-credits-label {
+  font-weight: 500;
+  color: var(--mgt-text-light);
+  font-size: 11px;
+}
+
+.mgt-credits-link {
+  color: var(--mgt-blue-header);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 11px;
+  opacity: 0.8;
+  
+  &:hover {
+    text-decoration: underline;
+    color: var(--mgt-blue-dark);
+    opacity: 1;
+  }
+}
+
+.mgt-credits-frontend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-style: italic;
+  color: var(--mgt-text-dark);
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--mgt-gray-border);
+}
+
+.mgt-credits-heart {
+  color: var(--mgt-red-progress);
+  font-size: 16px;
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+// Print Styles
+@media print {
+  .bg-mgt-bg {
+    background: white;
+    padding: 0;
+  }
+  
+  .mgt-window {
+    border: 1px solid #000;
+    box-shadow: none;
+  }
+  
+  .mgt-window-header {
+    background: #000 !important;
+    color: white !important;
+  }
+  
+  .mgt-credits {
+    border-top: 1px solid #000;
+    page-break-inside: avoid;
+  }
+}
+
+// Mobile Credits
+@media (max-width: 768px) {
+  .mgt-credits-row {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 10px;
+  }
+  
+  .mgt-credits-original,
+  .mgt-credits-dev {
+    text-align: center;
+  }
+  
+  .mgt-credits-label,
+  .mgt-credits-link {
+    font-size: 10px;
+  }
+}
