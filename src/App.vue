@@ -219,10 +219,10 @@
 </template>
 
 <script>
-import genres from './data/genres.json';
-import topics from './data/themes.json';
-import combinations from './data/combinations.json';
-import translations from './data/translations.json';
+import genres from '../assets/data/genres.json';
+import topics from '../assets/data/themes.json';
+import combinations from '../assets/data/combinations.json';
+import translations from '../assets/data/translations.json';
 
 export default {
   name: 'App',
