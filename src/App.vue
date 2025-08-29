@@ -241,7 +241,11 @@
 </template>
 
 <script>
-// Data will be loaded via fetch
+// Initialize empty data - will be loaded via require (local) or fetch (GitHub Pages)
+let genres = {};
+let topics = {};
+let combinations = {};
+let translations = {};
 
 export default {
   name: 'App',
@@ -271,11 +275,33 @@ export default {
     });
 
     return {
-      genres: {},
-      topics: {},
-      locales: [],
-      combinations: {},
-      translations: {},
+      genres: genres,
+      topics: topics,
+      locales: Object.keys(topics).map((locale) => {
+        let realLocale = locale;
+        let displayLocale = locale;
+        
+        // Map locale codes to country flags
+        if (locale === 'GE') realLocale = 'DE';
+        if (locale === 'EN') realLocale = 'US';
+        if (locale === 'TU') realLocale = 'TR';
+        if (locale === 'PB') realLocale = 'PT';
+        if (locale === 'CT') realLocale = 'ZH';
+        if (locale === 'CH') realLocale = 'ZH';
+        
+        // Map locale codes to better display names
+        if (locale === 'GE') displayLocale = 'DE';
+        if (locale === 'PB') displayLocale = 'PT';
+        if (locale === 'TU') displayLocale = 'TR';
+
+        return {
+          locale,
+          displayLocale,
+          realLocale: realLocale.toLowerCase(),
+        };
+      }),
+      combinations: combinations,
+      translations: translations,
       genreFallbackKey: 'NAME EN',
       locale: window.localStorage && window.localStorage.getItem('latest_locale') || 'EN',
       genre: -1,
@@ -286,12 +312,57 @@ export default {
       align: {},
       priority: [],
       showLanguages: false,
-      loading: true,
+      loading: Object.keys(topics).length === 0, // Only show loading if no data loaded
     };
   },
   async mounted() {
+    // Try to load data via require first (for local development)
     try {
-      // Try different data paths for local development vs GitHub Pages
+      const genresData = require('./data/genres.json');
+      const topicsData = require('./data/themes.json');
+      const combinationsData = require('./data/combinations.json');
+      const translationsData = require('./data/translations.json');
+      
+      this.genres = genresData;
+      this.topics = topicsData;
+      this.combinations = combinationsData;
+      this.translations = translationsData;
+      
+      // Initialize locales
+      this.locales = Object.keys(this.topics).map((locale) => {
+        let realLocale = locale;
+        let displayLocale = locale;
+        
+        // Map locale codes to country flags
+        if (locale === 'GE') realLocale = 'DE';
+        if (locale === 'EN') realLocale = 'US';
+        if (locale === 'TU') realLocale = 'TR';
+        if (locale === 'PB') realLocale = 'PT';
+        if (locale === 'CT') realLocale = 'ZH';
+        if (locale === 'CH') realLocale = 'ZH';
+        
+        // Map locale codes to better display names
+        if (locale === 'GE') displayLocale = 'DE';
+        if (locale === 'PB') displayLocale = 'PT';
+        if (locale === 'TU') displayLocale = 'TR';
+
+        return {
+          locale,
+          displayLocale,
+          realLocale: realLocale.toLowerCase(),
+        };
+      });
+      
+      this.loading = false;
+      console.log('Data loaded via require (local development)');
+      return;
+    } catch (e) {
+      console.log('require() failed, trying fetch (GitHub Pages)');
+    }
+    
+    // Fallback to fetch for GitHub Pages
+    try {
+      // Try different data paths for GitHub Pages
       const dataPaths = [
         './data/',
         '/data/',
