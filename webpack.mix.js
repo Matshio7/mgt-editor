@@ -6,7 +6,6 @@ const mix = require('laravel-mix');
 // global settings
 mix
 	.disableNotifications()
-	.setResourceRoot('src')
 	.setPublicPath('dist');
 
 // render js file
@@ -49,10 +48,15 @@ mix.before((mixHelpers) => {
 			);
 			let html = fs.readFileSync('./dist/index.html').toString();
 			for (let path of Object.keys(manifest)) {
-				html = html.replace(path, manifest[path].replace(/^\//, ''));
+				// Ensure relative paths for GitHub Pages
+				let assetPath = manifest[path];
+				if (assetPath.startsWith('/')) {
+					assetPath = '.' + assetPath;
+				}
+				// Fix double slashes
+				assetPath = assetPath.replace(/\/\//g, '/');
+				html = html.replace(path, assetPath);
 			}
-
-			html = html.replace(/\/\//i, '/');
 
 			fs.unlinkSync('./dist/mix-manifest.json');
 			fs.writeFileSync('./dist/index.html', html);
