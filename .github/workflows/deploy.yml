@@ -29,14 +29,25 @@ jobs:
         node-version: '18'
         cache: 'npm'
         
-    - name: Install dependencies
+    - name: Install MGT Editor dependencies
       run: npm ci
       
-    - name: Build assets
+    - name: Build MGT Editor assets
       run: npm run build:assets
       
-    - name: Build production
+    - name: Build MGT Editor production
       run: npm run build
+      
+    - name: Install Swarm dependencies
+      working-directory: ./swarm
+      run: npm ci
+      
+    - name: Build Swarm application
+      working-directory: ./swarm
+      run: npm run build
+      
+    - name: Copy swarm to dist
+      run: cp -r swarm/dist/* dist/swarm/
       
     - name: Setup Pages
       uses: actions/configure-pages@v4

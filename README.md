@@ -1,22 +1,35 @@
-# Mad Games Tycoon 2 - Game Editor (Redesigned)
+# Mad Games Tycoon 2 - Editor & Multi-Agent Swarm
 
 ![Mad Games Tycoon 2 Editor](https://img.shields.io/badge/Mad%20Games%20Tycoon%202-Game%20Editor-4A90E2)
 ![Vue.js](https://img.shields.io/badge/Vue.js-2.6-4FC08D)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-2.2-38BDF8)
 ![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-181717)
 
-This is a **completely redesigned web editor** for Mad Games Tycoon 2 with authentic game styling, full internationalization, and improved user experience.
+Complete Mad Games Tycoon 2 toolkit featuring both a redesigned web editor and an innovative multi-agent swarm system for simulating game development studio dynamics.
 
-## 🎮 Features
+## 🎮 Projects
 
-- **🎨 Authentic Mad Games Tycoon 2 UI** - Pixel-perfect recreation with blue gradient backgrounds
-- **🌐 Full Internationalization** - 20+ languages with translated UI elements
-- **📱 Mobile-First Design** - Touch-optimized interface for all devices
-- **🔤 Arial Rounded MT Typography** - Friendly, rounded font for better readability
-- **📊 Clean Value Display** - Simple, clear presentation without cluttered progress bars
-- **🔄 Alphabetically Sorted Lists** - Better UX with organized dropdowns
+### 1. MGT Editor
+Vue.js-based game editor with authentic Mad Games Tycoon 2 styling
+- **🎨 Authentic Mad Games Tycoon 2 UI** - Pixel-perfect recreation
+- **🌐 Full Internationalization** - 20+ languages 
+- **📱 Mobile-First Design** - Touch-optimized interface
 - **⚡ Real Game Data** - Uses original Mad Games Tycoon 2 data files
-- **🎯 Improved User Experience** - Streamlined interface with better visual hierarchy
+
+### 2. Multi-Agent Swarm System ⭐
+Interactive browser-based simulation of game development teams
+- **Location**: `swarm/`
+- **Technology**: ES6 modules, HTML5, CSS3
+- **Features**: 4 specialized agents, real-time collaboration
+- **Demo**: Available at `/swarm/` path on GitHub Pages
+
+## 🤖 Swarm Features
+
+### Agent Types
+- **👨‍💻 DeveloperAgent**: Programming, debugging, code reviews
+- **🎨 DesignerAgent**: Graphics, UI design, creative direction  
+- **🔍 TesterAgent**: Quality assurance, bug detection, balance testing
+- **👔 ManagerAgent**: Leadership, resource allocation, strategic decisions
 
 ## 🚀 Live Demo
 
