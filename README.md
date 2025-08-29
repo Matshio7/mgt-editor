@@ -1,19 +1,22 @@
-# Mad Games Tycoon 2 - Game Editor
+# Mad Games Tycoon 2 - Game Editor (Redesigned)
 
-![Mad Games Tycoon 2 Editor](https://img.shields.io/badge/Mad%20Games%20Tycoon%202-Game%20Editor-blue)
-![Vue.js](https://img.shields.io/badge/Vue.js-2.6-green)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-2.2-blue)
+![Mad Games Tycoon 2 Editor](https://img.shields.io/badge/Mad%20Games%20Tycoon%202-Game%20Editor-4A90E2)
+![Vue.js](https://img.shields.io/badge/Vue.js-2.6-4FC08D)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-2.2-38BDF8)
+![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-181717)
 
-This is a **redesigned web editor** for Mad Games Tycoon 2 to help you find the optimal settings for your game development projects.
+This is a **completely redesigned web editor** for Mad Games Tycoon 2 with authentic game styling, full internationalization, and improved user experience.
 
 ## 🎮 Features
 
-- **Authentic Mad Games Tycoon 2 UI Design** - Pixel-perfect recreation of the game's interface
-- **Multi-language Support** - 20+ languages including English, German, French, Spanish, etc.
-- **Alphabetically Sorted Dropdowns** - Better user experience with organized lists
-- **Mobile-Optimized** - Touch-friendly interface for all devices
-- **Real Game Data** - Uses original Mad Games Tycoon 2 data files
-- **Clean Value Display** - Simple, clear presentation of game settings
+- **🎨 Authentic Mad Games Tycoon 2 UI** - Pixel-perfect recreation with blue gradient backgrounds
+- **🌐 Full Internationalization** - 20+ languages with translated UI elements
+- **📱 Mobile-First Design** - Touch-optimized interface for all devices
+- **🔤 Arial Rounded MT Typography** - Friendly, rounded font for better readability
+- **📊 Clean Value Display** - Simple, clear presentation without cluttered progress bars
+- **🔄 Alphabetically Sorted Lists** - Better UX with organized dropdowns
+- **⚡ Real Game Data** - Uses original Mad Games Tycoon 2 data files
+- **🎯 Improved User Experience** - Streamlined interface with better visual hierarchy
 
 ## 🚀 Live Demo
 
@@ -44,7 +47,7 @@ Fully responsive design optimized for touch devices with compact layouts.
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/[YOUR_USERNAME]/mgt-editor.git
+git clone https://github.com/mcfly/mgt-editor.git
 cd mgt-editor
 
 # Install dependencies
