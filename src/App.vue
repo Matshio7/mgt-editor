@@ -241,11 +241,7 @@
 </template>
 
 <script>
-// Initialize empty data - will be loaded via require (local) or fetch (GitHub Pages)
-let genres = {};
-let topics = {};
-let combinations = {};
-let translations = {};
+// Data will be loaded via fetch from the dist/data/ folder
 
 export default {
   name: 'App',
@@ -275,33 +271,11 @@ export default {
     });
 
     return {
-      genres: genres,
-      topics: topics,
-      locales: Object.keys(topics).map((locale) => {
-        let realLocale = locale;
-        let displayLocale = locale;
-        
-        // Map locale codes to country flags
-        if (locale === 'GE') realLocale = 'DE';
-        if (locale === 'EN') realLocale = 'US';
-        if (locale === 'TU') realLocale = 'TR';
-        if (locale === 'PB') realLocale = 'PT';
-        if (locale === 'CT') realLocale = 'ZH';
-        if (locale === 'CH') realLocale = 'ZH';
-        
-        // Map locale codes to better display names
-        if (locale === 'GE') displayLocale = 'DE';
-        if (locale === 'PB') displayLocale = 'PT';
-        if (locale === 'TU') displayLocale = 'TR';
-
-        return {
-          locale,
-          displayLocale,
-          realLocale: realLocale.toLowerCase(),
-        };
-      }),
-      combinations: combinations,
-      translations: translations,
+      genres: {},
+      topics: {},
+      locales: [],
+      combinations: {},
+      translations: {},
       genreFallbackKey: 'NAME EN',
       locale: window.localStorage && window.localStorage.getItem('latest_locale') || 'EN',
       genre: -1,
@@ -312,101 +286,31 @@ export default {
       align: {},
       priority: [],
       showLanguages: false,
-      loading: Object.keys(topics).length === 0, // Only show loading if no data loaded
+      loading: true,
     };
   },
   async mounted() {
-    // Try to load data via require first (for local development)
     try {
-      const genresData = require('./data/genres.json');
-      const topicsData = require('./data/themes.json');
-      const combinationsData = require('./data/combinations.json');
-      const translationsData = require('./data/translations.json');
-      
-      this.genres = genresData;
-      this.topics = topicsData;
-      this.combinations = combinationsData;
-      this.translations = translationsData;
-      
-      // Initialize locales
-      this.locales = Object.keys(this.topics).map((locale) => {
-        let realLocale = locale;
-        let displayLocale = locale;
-        
-        // Map locale codes to country flags
-        if (locale === 'GE') realLocale = 'DE';
-        if (locale === 'EN') realLocale = 'US';
-        if (locale === 'TU') realLocale = 'TR';
-        if (locale === 'PB') realLocale = 'PT';
-        if (locale === 'CT') realLocale = 'ZH';
-        if (locale === 'CH') realLocale = 'ZH';
-        
-        // Map locale codes to better display names
-        if (locale === 'GE') displayLocale = 'DE';
-        if (locale === 'PB') displayLocale = 'PT';
-        if (locale === 'TU') displayLocale = 'TR';
-
-        return {
-          locale,
-          displayLocale,
-          realLocale: realLocale.toLowerCase(),
-        };
-      });
-      
-      this.loading = false;
-      console.log('Data loaded via require (local development)');
-      return;
-    } catch (e) {
-      console.log('require() failed, trying fetch (GitHub Pages)');
-    }
-    
-    // Fallback to fetch for GitHub Pages
-    try {
-      // Try different data paths for GitHub Pages
-      const dataPaths = [
-        './data/',
-        '/data/',
-        '../data/',
-        '../../data/'
-      ];
-      
-      let dataLoaded = false;
-      let genresData, topicsData, combinationsData, translationsData;
-      
-      for (const basePath of dataPaths) {
-        try {
-          console.log(`Trying to load data from: ${basePath}`);
-          [genresData, topicsData, combinationsData, translationsData] = await Promise.all([
-            fetch(`${basePath}genres.json`).then(res => {
-              if (!res.ok) throw new Error(`Failed to load genres.json from ${basePath}`);
-              return res.json();
-            }),
-            fetch(`${basePath}themes.json`).then(res => {
-              if (!res.ok) throw new Error(`Failed to load themes.json from ${basePath}`);
-              return res.json();
-            }),
-            fetch(`${basePath}combinations.json`).then(res => {
-              if (!res.ok) throw new Error(`Failed to load combinations.json from ${basePath}`);
-              return res.json();
-            }),
-            fetch(`${basePath}translations.json`).then(res => {
-              if (!res.ok) throw new Error(`Failed to load translations.json from ${basePath}`);
-              return res.json();
-            })
-          ]);
-          
-          console.log(`Successfully loaded data from: ${basePath}`);
-          dataLoaded = true;
-          break;
-        } catch (error) {
-          console.log(`Failed to load from ${basePath}:`, error.message);
-          continue;
-        }
-      }
-      
-      if (!dataLoaded) {
-        throw new Error('Could not load data from any path');
-      }
+      // Load all data files from the dist/data/ folder
+      console.log('Loading data from ./data/ folder...');
+      const [genresData, topicsData, combinationsData, translationsData] = await Promise.all([
+        fetch('./data/genres.json').then(res => {
+          if (!res.ok) throw new Error('Failed to load genres.json');
+          return res.json();
+        }),
+        fetch('./data/themes.json').then(res => {
+          if (!res.ok) throw new Error('Failed to load themes.json');
+          return res.json();
+        }),
+        fetch('./data/combinations.json').then(res => {
+          if (!res.ok) throw new Error('Failed to load combinations.json');
+          return res.json();
+        }),
+        fetch('./data/translations.json').then(res => {
+          if (!res.ok) throw new Error('Failed to load translations.json');
+          return res.json();
+        })
+      ]);
 
       this.genres = genresData;
       this.topics = topicsData;
@@ -439,6 +343,7 @@ export default {
       });
 
       this.loading = false;
+      console.log('Data loaded successfully!');
     } catch (error) {
       console.error('Error loading data:', error);
       this.loading = false;
